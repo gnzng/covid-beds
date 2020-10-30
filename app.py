@@ -35,12 +35,12 @@ def zahl2land(b):
 
 def importcsv(a):
     return pd.read_csv(a, parse_dates=['daten_stand'])
-betten_data = os.listdir('betten_data')
+betten_data = os.listdir('data')
 
 bettenlst = []
 for n in sorted(betten_data):
     if n.endswith('.csv'):
-        bettenlst.append(importcsv('betten_data/{}'.format(n)))
+        bettenlst.append(importcsv('data/{}'.format(n)))
 
 df = pd.concat(bettenlst)
 
