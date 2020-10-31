@@ -55,7 +55,7 @@ available_indicators = np.insert(df['bundesland'].unique(),0,0)
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[
-    html.H2('Intensivbettenbelegung in Deutschland'),
+    html.H2('COVID19: Intensivbettenbelegung in Deutschland'),
     html.Div([
         html.Div([
             html.Div([],className='one column'),
