@@ -8,7 +8,6 @@ import numpy as np
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
 
 
 
@@ -83,6 +82,8 @@ def update_graph(value):
         ],
         'layout': {'margin': {'l': 40, 'r': 0, 't': 20, 'b': 30}},
     }
+
+server = app.server
 
 if __name__ == '__main__':
     app.run_server()
