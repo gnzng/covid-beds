@@ -121,9 +121,8 @@ def update_graph(value0,value1):
     data = [trace1,trace2,trace3,trace4]
 
     layout = go.Layout(
-            xaxis = dict(title = 'Datum'), # x-axis label
-            yaxis = dict(title = 'Anzahl'), # y-axis label
-            hovermode ='closest', # handles multiple points landing on the same vertical
+            xaxis = dict(title = 'Datum'), 
+            yaxis = dict(title = 'Anzahl'), 
             margin = {'l': 30, 'r': 0, 't': 10, 'b': 20},
     )
     
