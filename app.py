@@ -65,7 +65,7 @@ app.layout = html.Div(children=[
                 html.Br(),
             ], className='four columns'),
         html.Div([
-            html.Label(['oder 6-stelliger* ' , html.A('Gemeindeschlüssel:',href='https://www.riserid.eu/data/user_upload/downloads/info-pdf.s/Diverses/Liste-Amtlicher-Gemeindeschluessel-AGS-2015.pdf',target="_blank", rel="noopener noreferrer")]),
+            html.Label(['oder 5-stelliger* ' , html.A('Gemeindeschlüssel:',href='https://www.riserid.eu/data/user_upload/downloads/info-pdf.s/Diverses/Liste-Amtlicher-Gemeindeschluessel-AGS-2015.pdf',target="_blank", rel="noopener noreferrer")]),
             dcc.Input(id='my-input',placeholder='Gemeindeschlüssel',type='text',value=''),
             html.Br(),
         ], className='four columns'),
