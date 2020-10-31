@@ -46,7 +46,7 @@ def give_cases(a,df):
 
 
 #import of Data
-df = pd.read_csv('data/gesamt.csv',parse_dates=['daten_stand'])
+df = pd.read_csv('https://raw.githubusercontent.com/gnzng/covid-beds/main/data/gesamt.csv',parse_dates=['daten_stand'])
 
 
 available_indicators = np.insert(df['bundesland'].unique(),0,0)
