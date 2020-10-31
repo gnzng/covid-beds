@@ -33,18 +33,6 @@ def zahl2land(b):
     land2zahldic = {v: k for k, v in zahl2landdic.items()}
     return zahl2landdic[a]
 
-def importcsv(a):
-    return pd.read_csv(a, parse_dates=['daten_stand'])
-betten_data = os.listdir('data')
-
-bettenlst = []
-for n in sorted(betten_data):
-    if n.endswith('.csv'):
-        bettenlst.append(importcsv('data/{}'.format(n)))
-
-df = pd.concat(bettenlst)
-
-
 
 def give_cases(a,df):
     if a == 0:
@@ -54,6 +42,9 @@ def give_cases(a,df):
         return df
     if a > 17:
         return df[df['gemeindeschluessel'] == a]
+
+
+df = pd.read_csv('data/gesamt.csv',parse_dates=['daten_stand'])
 
 
 available_indicators = np.insert(df['bundesland'].unique(),0,0)
