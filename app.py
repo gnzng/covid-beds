@@ -8,7 +8,6 @@ import numpy as np
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
 app.title='Bettenbelegung in DE'
 
 
@@ -136,14 +135,11 @@ def update_graph(value0,value1):
     y=1.02,
     xanchor="right",
     x=0.5
-)
     )
-    #fig.update_xaxes(tick0=5, dtick=1)
-    #fig.update_yaxes(tick0=3, dtick=1)
-    
+    )
     return fig
 
-
+server = app.server
 
 if __name__ == '__main__':
     app.run_server()
