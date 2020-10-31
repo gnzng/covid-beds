@@ -7,8 +7,10 @@ import os
 import numpy as np
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
+
 
 def zahl2land(b):
     c = "{0:02d}".format(b)
