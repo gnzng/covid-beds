@@ -2,13 +2,14 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objs as go
 import os
 import numpy as np
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
+server = app.server
+app.title='Bettenbelegung in DE'
 
 
 def zahl2land(b):
@@ -34,8 +35,8 @@ def zahl2land(b):
     land2zahldic = {v: k for k, v in zahl2landdic.items()}
     return zahl2landdic[a]
 
-
 def give_cases(a,df):
+    a = int(a)
     if a == 0:
         return df.groupby(['daten_stand']).sum().reset_index()
     if a < 17:
@@ -45,45 +46,104 @@ def give_cases(a,df):
         return df[df['gemeindeschluessel'] == a]
 
 
+#import of Data
 df = pd.read_csv('data/gesamt.csv',parse_dates=['daten_stand'])
 
 
 available_indicators = np.insert(df['bundesland'].unique(),0,0)
-print(available_indicators)
+
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.layout = html.Div([
-    dcc.Dropdown(
-        id='demo-dropdown',
-        options=[{'label': zahl2land(i)+': Intesivstationssituation', 'value': i} for i in available_indicators],
-        value=0
-    ),
-    dcc.Graph(
-        id='my-graph'
-    )
-])
+
+app.layout = html.Div(children=[
+    html.H1('Intensivbettenbelegung in Deutschland'),
+    html.Div([
+        html.Div([
+            html.Div([],className='one column'),
+            html.Div([
+                html.Label('wähle Region:'),
+                dcc.Dropdown(id='demo-dropdown',options=[{'label': zahl2land(i), 'value': i} for i in available_indicators],value=0),
+                html.Br(),
+            ], className='four columns'),
+        html.Div([
+            html.Label(['oder ' , html.A('Gemeindeschlüssel:',href='https://www.riserid.eu/data/user_upload/downloads/info-pdf.s/Diverses/Liste-Amtlicher-Gemeindeschluessel-AGS-2015.pdf',target="_blank", rel="noopener noreferrer")]),
+            dcc.Input(id='my-input',placeholder='Gemeindeschlüssel',type='text',value=''),
+            html.Br(),
+        ], className='four columns'),
+            html.Div([], className='one column'), 
+            html.Br(),           
+    ],
+    className='twelve columns'),
+    html.Div([
+        dcc.Graph(id='my-graph')
+        ],className='twelve columns'),
+    html.Br(),
+    html.A('Code on Github', href='https://github.com/gnzng/covid-beds',target="_blank", rel="noopener noreferrer"),
+    html.Br(),
+    html.A('Data source', href='https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table',target="_blank", rel="noopener noreferrer")
+])])
 
 
 @app.callback(
     dash.dependencies.Output('my-graph', 'figure'),
-    [dash.dependencies.Input('demo-dropdown', 'value')])
-#def update_output(value):
-#    return '{}'.format(zahl2land(value))
-        #[zahl2land(n) for n in value])
-def update_graph(value):
+    [dash.dependencies.Input('my-input', 'value'),dash.dependencies.Input('demo-dropdown', 'value')])
+def update_graph(value0,value1):
+    if value0 == '':
+        value = value1
+    else:
+        value = value0
     dff =  give_cases(value,df)
-    return {
-        'data': [
-            {'x': dff['daten_stand'],'y': dff['betten_frei'],'name': 'Betten frei'},
-            {'x': dff['daten_stand'],'y': dff['betten_belegt'],'name': 'Betten belegt'},
-            {'x': dff['daten_stand'],'y': dff['faelle_covid_aktuell'],'name': 'stationär wg. COVID'},
-            {'x': dff['daten_stand'],'y': dff['faelle_covid_aktuell_beatmet'],'name': 'beatmet wg. COVID'}
 
-        ],
-        'layout': {'margin': {'l': 40, 'r': 0, 't': 20, 'b': 30}},
-    }
+    trace1 = go.Line(
+        x = dff['daten_stand'],
+        y = dff['betten_frei'],
+        name = 'Betten frei'
+        )
 
-server = app.server
+    trace2 = go.Line(
+        x = dff['daten_stand'],
+        y = dff['betten_belegt'],
+        name = 'Betten belegt'
+        )
+
+    trace3 = go.Line(
+        x = dff['daten_stand'],
+        y = dff['faelle_covid_aktuell'],
+        name = 'stationär belegt wg. COVID'
+        )
+
+    trace4 = go.Line(
+        x = dff['daten_stand'],
+        y = dff['faelle_covid_aktuell_beatmet'],
+        name = 'stationär beatmet wg. COVID'
+        )
+
+    data = [trace1,trace2,trace3,trace4]
+
+    layout = go.Layout(
+            xaxis = dict(title = 'Datum'), # x-axis label
+            yaxis = dict(title = 'Anzahl'), # y-axis label
+            hovermode ='closest', # handles multiple points landing on the same vertical
+            margin = {'l': 30, 'r': 0, 't': 10, 'b': 20},
+    )
+    
+    fig = go.Figure(data=data, layout=layout)
+    fig.update_layout(
+        showlegend=True,
+        legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=0.5
+)
+    )
+    #fig.update_xaxes(tick0=5, dtick=1)
+    #fig.update_yaxes(tick0=3, dtick=1)
+    
+    return fig
+
+
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
