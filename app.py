@@ -55,7 +55,7 @@ available_indicators = np.insert(df['bundesland'].unique(),0,0)
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[
-    html.H1('Intensivbettenbelegung in Deutschland'),
+    html.H2('Intensivbettenbelegung in Deutschland'),
     html.Div([
         html.Div([
             html.Div([],className='one column'),
@@ -65,7 +65,7 @@ app.layout = html.Div(children=[
                 html.Br(),
             ], className='four columns'),
         html.Div([
-            html.Label(['oder ' , html.A('Gemeindeschlüssel:',href='https://www.riserid.eu/data/user_upload/downloads/info-pdf.s/Diverses/Liste-Amtlicher-Gemeindeschluessel-AGS-2015.pdf',target="_blank", rel="noopener noreferrer")]),
+            html.Label(['oder 6-stelliger* ' , html.A('Gemeindeschlüssel:',href='https://www.riserid.eu/data/user_upload/downloads/info-pdf.s/Diverses/Liste-Amtlicher-Gemeindeschluessel-AGS-2015.pdf',target="_blank", rel="noopener noreferrer")]),
             dcc.Input(id='my-input',placeholder='Gemeindeschlüssel',type='text',value=''),
             html.Br(),
         ], className='four columns'),
@@ -77,6 +77,7 @@ app.layout = html.Div(children=[
         dcc.Graph(id='my-graph')
         ],className='twelve columns'),
     html.Br(),
+    html.Label('* ohne die letzen 3 Ziffern aus der verlinkten Liste'),
     html.A('Code on Github', href='https://github.com/gnzng/covid-beds',target="_blank", rel="noopener noreferrer"),
     html.Br(),
     html.A('Data source', href='https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table',target="_blank", rel="noopener noreferrer")
@@ -142,4 +143,4 @@ def update_graph(value0,value1):
 server = app.server
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
