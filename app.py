@@ -124,6 +124,7 @@ def update_graph(value0,value1):
             xaxis = dict(title = 'Datum'), 
             yaxis = dict(title = 'Anzahl'), 
             margin = {'l': 30, 'r': 0, 't': 10, 'b': 20},
+            xaxis_rangeslider_visible=True
     )
     
     fig = go.Figure(data=data, layout=layout)
