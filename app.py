@@ -94,25 +94,25 @@ def update_graph(value0,value1):
         value = value0
     dff =  give_cases(value,df)
 
-    trace1 = go.Line(
+    trace1 = go.Scatter(
         x = dff['daten_stand'],
         y = dff['betten_frei'],
         name = 'Betten frei'
         )
 
-    trace2 = go.Line(
+    trace2 = go.Scatter(
         x = dff['daten_stand'],
         y = dff['betten_belegt'],
         name = 'Betten belegt'
         )
 
-    trace3 = go.Line(
+    trace3 = go.Scatter(
         x = dff['daten_stand'],
         y = dff['faelle_covid_aktuell'],
         name = 'stationär belegt wg. COVID'
         )
 
-    trace4 = go.Line(
+    trace4 = go.Scatter(
         x = dff['daten_stand'],
         y = dff['faelle_covid_aktuell_beatmet'],
         name = 'stationär beatmet wg. COVID'
@@ -146,4 +146,4 @@ def update_graph(value0,value1):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
