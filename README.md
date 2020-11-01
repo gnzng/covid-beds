@@ -1,6 +1,6 @@
 # COVID Bettenbelegung in Deutschland
 
-Dashboard unter: [bit.ly/covid-betten](bit.ly/covid-betten) oder direkt: https://covid-beds.herokuapp.com 
+Dashboard unter: [bit.ly/covid-betten](https://www.bit.ly/covid-betten) oder direkt: https://covid-beds.herokuapp.com 
 
 Daten von https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table
 
