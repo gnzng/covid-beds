@@ -77,7 +77,7 @@ app.layout = html.Div(children=[
         dcc.Graph(id='my-graph')
         ],className='twelve columns'),
     html.Br(),
-    html.Label('* ohne die letzen 3 Ziffern aus der verlinkten Liste'),
+    html.Label('* \'Gemeindehauptstadt\', ohne die letzen 3 Ziffern aus der verlinkten Liste'),
     html.A('Code on Github', href='https://github.com/gnzng/covid-beds',target="_blank", rel="noopener noreferrer"),
     html.Br(),
     html.A('Data source', href='https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table',target="_blank", rel="noopener noreferrer")
@@ -143,4 +143,4 @@ def update_graph(value0,value1):
 server = app.server
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
