@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gnzng/covid-beds.svg?branch=main)](https://travis-ci.org/gnzng/covid-beds)
+
 # COVID Bettenbelegung in Deutschland
 
 Dashboard unter: [bit.ly/covid-betten](https://www.bit.ly/covid-betten) oder direkt: https://covid-beds.herokuapp.com 
