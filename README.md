@@ -11,6 +11,6 @@ Gemeindeschlüssel können [hier](https://www.riserid.eu/data/user_upload/downlo
 
 ## To do:
 
-o einfügen der Daten der Kreisschlüssel ins Dropdown oder Textauswahl Menü anstatt des Gemeindezahlschlüssels
+- einfügen der Daten der Kreisschlüssel ins Dropdown oder Textauswahl Menü anstatt des Gemeindezahlschlüssels
 
 alle Angaben sind ohne Gewähr
