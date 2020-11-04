@@ -34,8 +34,30 @@ t.to_csv('schluessel.csv',index=False)
 '''
 
 t = pd.read_csv('schluessel.csv')
+t['Bundesland'] = t['Bundesland'].replace('Thüringen€','Thüringen')
 
-print(list(t['Verwaltungseinheit']).count('Gemeindefreies Gebiet'))
+t['Gemeinde+Bundesland'] = t['Stadt/Gemeinde'] + ', '+ t['Bundesland']
+t['5stellig'] = t['Gemeindeschlüssel']/1000
+t['5stellig'] = t['5stellig'].round(decimals=0).astype(int)
+
+print(t['Bundesland'].head(30))
+
+s = t.groupby('5stellig')['Stadt/Gemeinde'].apply(lambda x: "{%s}" % ', '.join(x))
+s = t.groupby('5stellig').agg(Gemeinden=('Stadt/Gemeinde', ', '.join)).reset_index()
+
+t.to_csv('alles.csv')
+
+p = pd.read_csv('kreise.csv')
+
+def zahl2gemeinde(a):
+    return str(p[p['5stellig'] == a]['Gemeinden'].iat[0])
+
+
+#print(zahl2gemeinde(5754))
+
+#print(t.head())
+
+#print(list(t['Verwaltungseinheit']).count('Gemeindefreies Gebiet'))
 
 lst1 = []
 lst2 = []
@@ -46,7 +68,7 @@ for n in range(int(len(t))):
         #f = t.iloc[[n]]
         #lst2.append(f[:].values)
 
-print(len(lst1))
+#print(len(lst1))
 
 t = t.set_index('Gemeindeschlüssel')
 #t['Gemeindeschlüssel'].astype(str)
