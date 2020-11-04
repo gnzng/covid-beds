@@ -48,6 +48,7 @@ def give_cases(a,df):
 #import of Data
 df = pd.read_csv('https://raw.githubusercontent.com/gnzng/covid-beds/main/data/gesamt.csv',parse_dates=['daten_stand'])
 
+stand = df['daten_stand'].max().strftime('%d.%m.%Y %H:%M')
 
 available_indicators = np.insert(df['bundesland'].unique(),0,0)
 
@@ -80,7 +81,7 @@ app.layout = html.Div(children=[
     html.Label('* \'Gemeindehauptstadt\', ohne die letzen 3 Ziffern aus der verlinkten Liste'),
     html.A('Code gibt\'s hier', href='https://github.com/gnzng/covid-beds',target="_blank", rel="noopener noreferrer"),
     html.Br(),
-    html.A('Daten hier', href='https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table',target="_blank", rel="noopener noreferrer")
+    html.Label([html.A('Daten hier', href='https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv?layout=table',target="_blank", rel="noopener noreferrer"),' | Stand: {}'.format(stand)]),
 ])])
 
 
