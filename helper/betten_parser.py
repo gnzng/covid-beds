@@ -12,9 +12,9 @@ while True:
     for date in lstdates:
         t = 0 
         for n in range(n0,10000):
-            if n%10 ==0:
-                print(n,today)
             for k in range(9,15):
+                if n%10 ==0:
+                    print(n,k,today)
                 k = "{0:02d}".format(k)
                 try:
                     url = 'https://www.divi.de/divi-intensivregister-tagesreport-archiv-csv/divi-intensivregister-{}-{}-15/viewdocument/{}'.format(date,k,n)
