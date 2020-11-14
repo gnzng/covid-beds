@@ -5,7 +5,9 @@ import pandas as pd
 
 
 while True:
+    from data_prep import save     
     import datetime
+    save()
     today = str(datetime.date.today())
     lstdates = [today]
     n0 = 5000
