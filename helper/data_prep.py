@@ -16,7 +16,7 @@ def save():
                 pass
     df = pd.concat(bettenlst)
     df.to_csv('../data/gesamt.csv')
-    return print('saved til {}'.format(bettenlst[-1]))
+    return print('saved til {}'.format(df['daten_stand']))
 
 if __name__ == '__main__':
     save()
